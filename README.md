@@ -1,5 +1,11 @@
 Bool
 ====
+![Bool Logo](https://raw.github.com/lordofthejars/bool/master/boollogo.png)
+
+
+Status
+------
+[![Build Status](https://buildhive.cloudbees.com/job/lordofthejars/job/bool/badge/icon)](https://buildhive.cloudbees.com/job/lordofthejars/job/bool/)
 
 Introduction
 ------------
