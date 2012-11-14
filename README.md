@@ -1,5 +1,4 @@
-Bool
-====
+
 ![Bool Logo](https://raw.github.com/lordofthejars/bool/master/boollogo.png)
 
 
