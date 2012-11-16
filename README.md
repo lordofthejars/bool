@@ -211,10 +211,51 @@ And also you can use **Bool** in unit tests by using *shouldBe* method. For exam
 assertThat(the(name, shouldBe(equalTo("Alex")).and(shouldBe(startsWith("A")))), is(true));
 ```
 
+Performance
+-----------
+
+It seems reasonable that using **Bool** performance should be worst than using native conditions. But I have to say that I have been pleasantly surprised by the performance of **Bool** and *Hamcrest* matchers.
+
+I have run 5000 times some examples provided in documentation. For example one single condition, one condition negated, two conditions over the same attribute with *and* keyword, two attributes being compared with one condition, and one collection comparison. And the results are the next ones:
+
+```
+PerformanceTests.native_simple_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.06, time.warmup: 0.00, time.bench: 0.06
+PerformanceTests.bool_simple_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.06, time.warmup: 0.00, time.bench: 0.06
+
+PerformanceTests.native_simple_negated_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 1, GC.time: 0.01, time.total: 0.08, time.warmup: 0.00, time.bench: 0.08
+PerformanceTests.bool_simple_negated_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 1, GC.time: 0.00, time.total: 0.08, time.warmup: 0.00, time.bench: 0.08
+
+PerformanceTests.native_composed_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.06, time.warmup: 0.00, time.bench: 0.06
+PerformanceTests.bool_composed_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.08, time.warmup: 0.00, time.bench: 0.08
+
+PerformanceTests.native_multi_values_composed_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.06, time.warmup: 0.00, time.bench: 0.06
+PerformanceTests.bool_multi_values_composed_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 0, GC.time: 0.00, time.total: 0.09, time.warmup: 0.00, time.bench: 0.09
+
+PerformanceTests.native_collection_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 1, GC.time: 0.01, time.total: 0.25, time.warmup: 0.00, time.bench: 0.25
+PerformanceTests.bool_collection_comparision: [measured 50000 out of 50001 rounds, threads: 1 (sequential)]
+ round: 0.00 [+- 0.00], round.gc: 0.00 [+- 0.00], GC.calls: 3, GC.time: 0.01, time.total: 0.28, time.warmup: 0.01, time.bench: 0.27
+```
+![Performance](https://raw.github.com/lordofthejars/bool/master/times.jpg)
+
+Note that using simple conditions the time is the same, and is after we start creating more complex condition expressions that the performance is a bit reduced.
+
+You can find the performance test in *com.lordofthejars.bool.performance.PerformanceTests*
+
 Final Notes
 -----------
 
 Please keep in mind that the border between writing clean and readable code and something unintelligible is very thin. You can start creating a complex chaining of calls so no one can understand the real meaning of the condition. One good practice to avoid this case is splitting complex chaining calls into multiple variables and then the final calls are executed inside the *if* (or inside a method which extracts all this logic). But anyway if you found creating a really complex condition, think about the correctness of this logic before coding it, because maybe you are providing to a condition a heavy responsibility.
+
+Also note that you can use **Bool** in all of your conditions, but where you really take the full power is in business conditions, those conditions that represents important rules for your business.   
 
 Stay In Touch
 -------------
