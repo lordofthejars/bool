@@ -30,13 +30,26 @@ From *Hamcrest* documentation we can read that
 
 *Hamcrest* is used in many projects, *JUnit* for asserting tests (most of us have use it in this way), or *Mockito*. But as previous cite said, *Hamcrest* can be also used outside testing scope, *Lambdaj* is an example, and **Bool** is another one.
 
+Installation
+------------
+
+To use **Bool** you only have to add it to classpath.
+
+```xml
+<dependency>
+    <groupId>com.lordofthejars</groupId>
+    <artifactId>bool</artifactId>
+    <version>0.9.0</version>
+</dependency>
+``` 
+
 In Action
 ---------
 
 All required methods are provided as static methods in the class **Bool**:
 
 ```java
-import static com.lordofthejars.bool.Bool
+import static com.lordofthejars.bool.Bool.*;
 ```
 
 Let's explore a simple example to see the differences between using an if as usually and with **Bool** project:
@@ -133,7 +146,7 @@ if(the(ages, is(everyItem(greaterThan(18))))) {
 }
 ```
 
-But also with arrays are improved so much, when you want to compare two arrays you cannot do by using equals method directly but using *Arrays.equals* method. But *Hamcrest* matchers deals with this problem, hidding this details from developers so we can compare arrays safely.
+But also with arrays are improved so much, when you want to compare two arrays you cannot do by using equals method directly but using *Arrays.equals* method. But *Hamcrest* matchers deals with this problem, hiding this details from developers so we can compare arrays safely.
 
 ```java
 byte[] name = "alex".getBytes();
@@ -147,7 +160,7 @@ And of course you can use all matchers you can imagine like *contains*, *empty*,
 
 Let's complicate things a bit more.
 
-Normally, our conditions contain more than one clause. For example, the name should be Alex or Ada. For covering this case, *be* and *is* keyword is also available. *is* keyword provides a better readability to your conditions, but can conflict with *Hamcrest "is"* method. So *be* is also provided, you can use any of them.
+Normally, our conditions contain more than one clause. For example, the name should be Alex or Ada. For covering this case, *be* and *is* keyword is also available. *is* keyword provides a better readability to your conditions, but can conflict with *Hamcrest "is"* method. So *be* is also provided. You can use any of them.
 
 ```java
 if(the(name, be(equalTo("Alex")).or(be(equalTo("Ada"))))) {
@@ -169,7 +182,7 @@ But sometimes rules are more complex and imply more than one variable. For solvi
 So for example if name should be "Alex" and surname "Soto":
 
 ```java
-String name = "Alex;
+String name = "Alex";
 String surname = "Soto";
 
 if(the(name, be(equalTo("Alex")).and(the(surname, equalTo("Soto"))))) {
@@ -253,9 +266,9 @@ You can find the performance test in *com.lordofthejars.bool.performance.Perform
 Final Notes
 -----------
 
-Please keep in mind that the border between writing clean and readable code and something unintelligible is very thin. You can start creating a complex chaining of calls so no one can understand the real meaning of the condition. One good practice to avoid this case is splitting complex chaining calls into multiple variables and then the final calls are executed inside the *if* (or inside a method which extracts all this logic). But anyway if you found creating a really complex condition, think about the correctness of this logic before coding it, because maybe you are providing to a condition a heavy responsibility.
+Please keep in mind that the border between writing clean and readable code and something unintelligible is very thin. You can start creating a complex chaining of calls *train wreck* so no one can understand the real meaning of the condition. One good practice to avoid this case is splitting complex chaining calls into multiple variables and then the final calls are executed inside the *if* (or inside a method which extracts all this logic). But anyway if you found creating a really complex condition, think about the correctness of this logic before coding it, because maybe you are providing to a condition a heavy responsibility.
 
-Also note that you can use **Bool** in all of your conditions, but where you really take the full power is in business conditions, those conditions that represents important rules for your business.   
+Also note that you can use **Bool** in all of your conditions, but where you really take the full power is in conditions that represents important rules for your business.   
 
 Stay In Touch
 -------------
