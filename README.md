@@ -274,7 +274,7 @@ Stay In Touch
 -------------
 
 * Email:     asotobu at gmail.com
-* Blog:      [Lord Of The Jars](www.lordofthejars.com)
+* Blog:      [Lord Of The Jars](http://www.lordofthejars.com)
 * Twitter:   @alexsotob
 * Github:    [Bool Github](https://github.com/lordofthejars/bool)
 
